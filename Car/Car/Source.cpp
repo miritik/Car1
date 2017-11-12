@@ -6,69 +6,71 @@ using namespace std;
 
 class Car {
 
-public:
+private:
 	string m_make;
 	string m_model; 
 	int m_year;
 	int m_engineVolume;
 	string m_color;
+
+public:
 	Car () {}
 	Car(string make, string model, int year, int engineVolume, string color)
 		: m_make(make), m_model(model), m_year(year), m_engineVolume(engineVolume), m_color(color) {}
 
-	string get_make()
+	string get_make() const
 	{
 		return this->m_make;
 	}
-	string get_model()
+	string get_model() const
 	{
 		return this->m_model;
 	}
-	int get_year()
+	int get_year() const
 	{
 		return this->m_year;
 	}
-	int get_engineVolume()
+	int get_engineVolume() const
 	{
 		return this->m_engineVolume;
 	}
-	string get_color()
+	string get_color() const
 	{
 		return this->m_color;
 	}
-	void set_make(string make)
+	void set_make(const string make)
 	{
 		this->m_make = make;
 	}
-	void set_model(string model)
+	void set_model(const string model)
 	{
 		this->m_model = model;
 	}
-	void set_year(int year)
+	void set_year(const int year)
 	{
 		this->m_year = year;
 	}
-	void set_engineVolume(int engineVolume)
+	void set_engineVolume(const int engineVolume)
 	{
 		this->m_engineVolume = engineVolume;
 	}
-	void set_color(string color)
+	void set_color(const string color)
 	{
 		this->m_color = color;
 	}
 
-	void print()
+	void print() const
 	{
 		cout << "The Car make: " << m_make << "\nmodel: " << m_model << "\nyear: " << m_year
 			<< "\nengineVolume: " << m_engineVolume << "\ncolor: " << m_color<< endl;
 	}
-	static Car compareByYear(Car &a, Car &b)
+	const  Car &compareByYear( const Car &b) const
 	{
-		return a.m_year > b.m_year ? a : b;
+		return this->m_year > b.m_year ? *this : b;
 	}
-	static Car compareByEngineVolume(Car &a, Car &b)
+	const Car &compareByEngineVolume( const Car &b) const
 	{
-		return a.m_engineVolume > b.m_engineVolume ? a : b;
+		return this->m_engineVolume > b.m_engineVolume ? *this : b;
 	}
 };
 
@@ -98,13 +100,13 @@ int main()
 	cout << "The details of your car: \n";
 	userCar.print();
 
-	Car myCar = { "Ford", "Focus", 2017, 1600, "White" };
+	const Car myCar = { "Ford", "Focus", 2017, 1600, "White" };
 
 	cout << "The details of greater years car: \n";
-	Car::compareByYear(userCar, myCar).print();
+	userCar.compareByYear(myCar).print();
 
 	cout << "The details of greater engine-volume car: \n";
-	Car::compareByEngineVolume(userCar, myCar).print();
+	userCar.compareByEngineVolume(myCar).print();
 
 	return 0;
 
